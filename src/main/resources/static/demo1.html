@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>富文本</title>
+    <script src="ckeditor/ckeditor.js"></script>
+</head>
+<body>
+<textarea class="ckeditor" name="editor1" id="editor1" rows="10" cols="80">
+            </textarea>
+<script>
+    // 替换 <textarea id="editor1">为CKEditor实例
+    // 使用默认配置
+    CKEDITOR.replace('editor1');
+</script>
+</body>
+</html>

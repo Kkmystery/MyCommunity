@@ -1,0 +1,53 @@
+spring:
+  mvc:
+    multipart:
+      enabled: true
+      max-file-size: 30MB
+      max-request-size: 30MB
+    static-path-pattern: /**
+    # 默认值为 classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
+#  数据库及连接池配置
+  datasource:
+    username: root
+    password: "Believe"
+    url: jdbc:mysql://localhost:3306/community
+    type: com.alibaba.druid.pool.DruidDataSource
+    #   数据源其他配置
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    #   配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+    filters: stat,wall,log4j
+    maxPoolPreparedStatementPerConnectionSize: 20
+    useGlobalDataSourceStat: true
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+    druid:
+      connection-init-sqls: set names utf8mb4
+
+#Mybatis配置
+mybatis:
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  type-aliases-package: com.kk.community.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    use-generated-keys: true
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  # spring boot集成mybatis的方式打印sql
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+#分页功能配置
+pagehelper:
+  helper-dialect: mysql
+  params: count=countSql
+  reasonable: true
+  support-methods-arguments: true
+
+
