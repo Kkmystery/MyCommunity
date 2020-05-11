@@ -176,4 +176,12 @@
     and user_id=#{userId}
     order by create_time asc
   </select>
+
+  <select id="selectMyCommentCount" parameterType="int" resultType="int">
+    select count(id) from comment
+    where status=0
+    and entity_type=1
+    and user_id=#{userId}
+  </select>
 </mapper>
+

@@ -75,4 +75,9 @@ public class CommentServiceImpl implements CommentService, CommunityConstant {
     public Page<Comment> findMyComment(int userId) {
         return commentMapper.selectMyCommentList(userId);
     }
+
+    @Override
+    public int findMyCommentCount(int userId) {
+        return commentMapper.selectMyCommentCount(userId);
+    }
 }

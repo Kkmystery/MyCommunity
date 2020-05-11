@@ -25,4 +25,6 @@ public interface CommentService {
 
     //查找个人回复记录
     public Page<Comment> findMyComment(int userId);
+    //查找个人回复数
+    public int findMyCommentCount(int userId);
 }

@@ -27,4 +27,6 @@ public interface CommentMapper {
     int selectCountByEntity(int entityType,int entityId);
 
     Page<Comment> selectMyCommentList(int userId);
+
+    int selectMyCommentCount(int userId);
 }

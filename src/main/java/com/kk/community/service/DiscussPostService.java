@@ -23,4 +23,5 @@ public interface DiscussPostService {
     public Page<DiscussPost> findMyDiscussPost(int userId);
     //查找个人创作的数目
     public int findMyDiscussPostCount(int userId);
+
 }
