@@ -2,15 +2,15 @@ spring:
   mvc:
     multipart:
       enabled: true
-      max-file-size: 30MB
-      max-request-size: 30MB
+      max-file-size: 100MB
+      max-request-size: 100MB
     static-path-pattern: /**
     # 默认值为 classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
 #  数据库及连接池配置
   datasource:
     username: root
-    password: "Believe"
-    url: jdbc:mysql://localhost:3306/community
+    password: "root"
+    url: jdbc:mysql://47.98.255.128:3306/community
     type: com.alibaba.druid.pool.DruidDataSource
     #   数据源其他配置
     initialSize: 5
@@ -49,5 +49,9 @@ pagehelper:
   params: count=countSql
   reasonable: true
   support-methods-arguments: true
+
+
+# 分布式文件系统FDFS配置
+
 
 

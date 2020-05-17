@@ -26,6 +26,16 @@
             <td th:text="${book.url}"></td>
         </tr>
     </table>
+
+
+
+    <h1 th:inlines="text">文件上传</h1>
+    <form action="upload" method="post" enctype="multipart/form-data">
+        <p>选择文件: <input type="file" name="fileName"/></p>
+        <p><input type="submit" value="提交"/></p>
+    </form>
+
+
 </div>
 </body>
 <script>
