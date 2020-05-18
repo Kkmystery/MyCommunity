@@ -1,3 +1,4 @@
+
 spring:
   mvc:
     multipart:
@@ -54,4 +55,5 @@ pagehelper:
 # 分布式文件系统FDFS配置
 
 
-
+server:
+  port: 8888

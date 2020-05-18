@@ -7,7 +7,7 @@
     <meta name="_csrf_header" th:content="${_csrf.headerName}">-->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!--<link rel="icon" th:href="@{/user/header/index.jpg}"/>-->
-    <link rel="icon" href=""/>
+    <link rel="icon" th:href="@{/upload/index.jpg}"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/css/global.css}"/>
@@ -23,7 +23,9 @@
             <!-- 导航 -->
             <nav class="navbar navbar-expand-lg navbar-dark">
                 <!-- logo -->
-                <a class="navbar-brand" th:href="@{/index}"></a>
+                <a class="navbar-brand"  >
+                    <img th:src="@{/upload/head.jpg}" style="width: 130px;height: 50px;" th:href="@{/index}">
+                </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -182,7 +184,7 @@
             <div class="row">
                 <!-- 二维码 -->
                 <div class="col-5 qrcode">
-                    <img th:src="@{/user/header/kk.jpg}" class="img-thumbnail"
+                    <img th:src="@{/upload/kk.jpg}" class="img-thumbnail"
                          style="width:150px;height: 190px"/>
                 </div>
                 <!-- 公司信息 -->
@@ -204,7 +206,7 @@
 
                                 </li>
                                 <li class="nav-item text-white-50">
-                                    联系方式：(电话)&nbsp;&nbsp;&nbsp;&nbsp;1020803064.com
+                                    联系方式：(邮箱)&nbsp;&nbsp;&nbsp;&nbsp;1020803064.com
                                 </li>
                                 <li class="nav-item text-white-50">
 

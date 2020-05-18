@@ -1,6 +1,6 @@
 var CONTEXT_PATH="/community";
-// var localhost=" http://47.98.255.128:8080";
- var localhost=" http://localhost:80";
+ var localhost=" http://47.98.255.128:8888";
+ //var localhost=" http://localhost:8080";
 window.alert = function(message) {
 	if(!$(".alert-box").length) {
 		$("body").append(
