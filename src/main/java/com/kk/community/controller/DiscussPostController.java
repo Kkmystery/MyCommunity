@@ -164,7 +164,7 @@ public class DiscussPostController implements CommunityConstant {
         }
         model.addAttribute("comments", commentVoList);
 
-        return "/site/discuss-detail";
+        return "site/discuss-detail";
     }
 
     @RequestMapping(path = "/myPost/{userId}",method = RequestMethod.GET)
@@ -193,7 +193,7 @@ public class DiscussPostController implements CommunityConstant {
         model.addAttribute("myPostList",myPostList);
         model.addAttribute("user",user);
         model.addAttribute("discussPostCount",discussPostCount);
-        return "/site/my-post";
+        return "site/my-post";
     }
 
     //置顶

@@ -41,7 +41,7 @@ public class SearchController implements CommunityConstant {
                          @RequestParam(value = "page", required = false, defaultValue = "1") int page,
                          @RequestParam(value = "pageSize", required = false, defaultValue = "8") int pageSize){
         if (keyword.equals("")){
-            return "/index";
+            return "index";
         }
 
         //搜素帖子
@@ -68,6 +68,6 @@ public class SearchController implements CommunityConstant {
         model.addAttribute("pagePath", pagePath);
         model.addAttribute("keyword",keyword);
         model.addAttribute("discussPosts",discussPosts);
-        return "/site/search";
+        return "site/search";
     }
 }

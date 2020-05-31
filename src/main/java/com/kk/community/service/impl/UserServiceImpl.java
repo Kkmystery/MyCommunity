@@ -97,7 +97,7 @@ public class UserServiceImpl implements UserService, CommunityConstant {
         user.setStatus(0); //未激活
         user.setType(0);//标识为普通用户
         user.setActivationCode(CommunityUtil.generateUUid().substring(0,5));
-        user.setHeaderUrl(domin+contextPath+"/user/header/man.jpg");
+        user.setHeaderUrl("http://47.98.255.128:8888/group1/M00/00/00/rBDZs17CCt-AXaFIAAA7AxpKubQ918.jpg");
         user.setCreateTime(new Date());
         int id = userMapper.insert(user);
         //发送激活邮件

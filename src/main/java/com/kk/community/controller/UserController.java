@@ -60,7 +60,7 @@ public class UserController implements CommunityConstant {
     @LoginRequired
     @RequestMapping(path = "/setting", method = RequestMethod.GET)
     public String getSettingPage() {
-        return "/site/setting";
+        return "site/setting";
     }
 
     /*上传文件访问路径*/
@@ -70,7 +70,7 @@ public class UserController implements CommunityConstant {
         //判断文件格式
         if (headerImage == null) {
             model.addAttribute("error", "您还没选择图片");
-            return "/site/setting";
+            return "site/setting";
         }
         //全名
         String fileName = headerImage.getOriginalFilename();
@@ -79,8 +79,8 @@ public class UserController implements CommunityConstant {
         //后缀名 如jpg、png
         String extName = fileName.substring(fileName.lastIndexOf(".") + 1);
         if (StringUtils.isBlank(suffix)) {
-            model.addAttribute("error", "文件格式b不正确");
-            return "/site/setting";
+            model.addAttribute("error", "文件格式不正确");
+            return "site/setting";
         }
 
         //若正确上传,生成随机文件名
@@ -169,7 +169,7 @@ public class UserController implements CommunityConstant {
         model.addAttribute("hasFollowed",hasFollowed);
 
         model.addAttribute("likeCount",likeCount);
-        return "/site/profile";
+        return "site/profile";
 
     }
 }

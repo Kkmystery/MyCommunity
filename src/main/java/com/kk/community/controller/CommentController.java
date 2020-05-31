@@ -103,7 +103,7 @@ public class CommentController implements CommunityConstant {
         model.addAttribute("myCommentList",myCommentList);
         model.addAttribute("user",user);
 
-        return "/site/my-reply";
+        return "site/my-reply";
 
     }
 }

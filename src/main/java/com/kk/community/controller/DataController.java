@@ -23,7 +23,7 @@ public class DataController {
     //统计页面
     @RequestMapping(path = "/data" ,method = {RequestMethod.GET,RequestMethod.POST})
     public String getDatePage(){
-        return "/site/admin/data";
+        return "site/admin/data";
     }
 
     @RequestMapping(path = "/data/uv",method = RequestMethod.POST)

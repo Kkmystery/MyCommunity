@@ -133,7 +133,7 @@ public class LoginController implements CommunityConstant {
         }
         if (StringUtils.isBlank(kaptcha)||StringUtils.isBlank(code)||!kaptcha.equalsIgnoreCase(code)){
             model.addAttribute("codeMsg","验证码不正确!");
-            return "/site/login";
+            return "site/login";
         }
         //检查账号密码
         int expiredSeconds=rememberme?REMEMBER_EXPIRED_SECONDS:DEFAULT_EXPIRED_SECONDS;
@@ -148,7 +148,7 @@ public class LoginController implements CommunityConstant {
         }else {
             model.addAttribute("usernameMsg",map.get("usernameMsg"));
             model.addAttribute("passwordMsg",map.get("passwordMsg"));
-            return "/site/login";
+            return "site/login";
         }
     }
 
