@@ -27,4 +27,6 @@ public interface CommentService {
     public Page<Comment> findMyComment(int userId);
     //查找个人回复数
     public int findMyCommentCount(int userId);
+    //删除评论(当帖子被删除时，评论也需要删除)
+    public void deleteComment(int id,int status);
 }

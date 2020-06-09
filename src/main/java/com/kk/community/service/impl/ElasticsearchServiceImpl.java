@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.SearchResultMapper;
 import org.springframework.data.elasticsearch.core.aggregation.AggregatedPage;
@@ -23,6 +24,8 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilde
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -70,6 +73,7 @@ public class ElasticsearchServiceImpl implements ElasticsearchService {
                     return null;
                 }
                 List<DiscussPost> list = new ArrayList<>();
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 for (SearchHit hit : hits) {
                     DiscussPost post = new DiscussPost();
                     String id = hit.getSourceAsMap().get("id").toString();
@@ -88,7 +92,11 @@ public class ElasticsearchServiceImpl implements ElasticsearchService {
                     post.setStatus(Integer.valueOf(status));
 
                     String createTime = hit.getSourceAsMap().get("createTime").toString();
-                    post.setCreateTime(new Date(Long.valueOf(createTime)));
+                    try {
+                        post.setCreateTime(simpleDateFormat.parse(createTime));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
 
                     String commentCount = hit.getSourceAsMap().get("commentCount").toString();
                     post.setCommentCount(Integer.valueOf(commentCount));

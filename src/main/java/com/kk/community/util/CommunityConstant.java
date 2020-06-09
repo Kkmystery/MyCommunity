@@ -57,7 +57,7 @@ public interface CommunityConstant {
     String TOPIC_FOLLOW="follow";
 
     /**
-     *  主题：关注
+     *  主题：收藏帖子
      */
     String TOPIC_DISCUSSPOST="post";
 

@@ -18,5 +18,4 @@ public class CommonResult<T> implements Serializable {
         this(code, message, null);
     }
 
-
 }

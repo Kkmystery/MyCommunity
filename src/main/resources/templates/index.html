@@ -8,8 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!--<link rel="icon" th:href="@{/user/header/index.jpg}"/>-->
     <link rel="icon" th:href="@{/upload/index.jpg}"/>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/css/global.css}"/>
     <title th:text="|${UnreadCount!=null?UnreadCount:''}KK论坛-首页|">
         KK论坛-首页</title>
@@ -23,8 +22,8 @@
             <!-- 导航 -->
             <nav class="navbar navbar-expand-lg navbar-dark">
                 <!-- logo -->
-                <a class="navbar-brand"  >
-                    <img th:src="@{/upload/head.jpg}" style="width: 130px;height: 50px;" th:href="@{/index}">
+                <a class="navbar-brand" th:href="@{/index}" >
+                    <img th:src="@{/upload/head.jpg}" style="width: 130px;height: 50px;">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -48,7 +47,7 @@
                             <a class="nav-link" th:href="@{/login}" >登录</a>
                         </li>
                         <li class="nav-item ml-3 btn-group-vertical dropdown" th:if="${loginUser!=null}">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            <a class="nav-link dropdown-toggle" th:href="@{|/user/profile/${loginUser.id}|}" id="navbarDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img th:src="${loginUser.headerUrl}" class="rounded-circle"
                                      style="width:35px;height: 35px"/>
@@ -108,9 +107,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="col-form-label">正文：</label>
-                                    <textarea class="form-control" id="messagetext" rows="15">
-
-                                    </textarea>
+                                    <textarea class="form-control" id="messagetext" rows="15"></textarea>
                                 </div>
                             </form>
                         </div>
@@ -145,10 +142,11 @@
                     </a>
                     <div class="media-body">
                         <h6 class="mt-0 mb-3">
-                            <a th:href="@{|/discuss/detail/${map.post.id}|}" th:utext="${map.post.title}">震惊！！！！这是个新闻标题</a>
+                            <a th:href="@{|/discuss/detail/${map.post.id}|}" th:utext="${#strings.abbreviate(map.post.title,16)}">震惊！！！！这是个新闻标题</a>
                             <span class="badge badge-secondary bg-primary" th:if="${map.post.type==1}">置顶</span>
                             <span class="badge badge-secondary bg-danger" th:if="${map.post.status==1}">精华</span>
                         </h6>
+                        <div style="font-size: 20px;padding-top: 5px" th:utext="${#strings.abbreviate(map.post.content,30)}"></div>
                         <div class="text-muted font-size-12">
                             <u class="mr-3" th:utext="${map.user.username}">寒江雪</u> 发布于 <b
                                 th:text="${#dates.format(map.post.createTime,'yyyy-MM-dd- HH:mm:ss')}">2019-04-15
@@ -226,10 +224,9 @@
     </footer>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+<script th:src="@{/js/jquery-3.3.1.min.js}" ></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}" ></script>
 <script th:src="@{/js/global.js}"></script>
 <script th:src="@{/js/index.js}"></script>
 <script th:src="@{/ckeditor/ckeditor.js}"></script>

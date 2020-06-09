@@ -3,6 +3,8 @@ package com.kk.community.service.impl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.kk.community.service.CommentService;
+import com.kk.community.service.DiscussPostService;
 import com.kk.community.service.FollowService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,15 @@ class FollowServiceImplTest {
 
     @Autowired
     FollowService followService;
+    @Autowired
+    CommentService commentService;
+
+    @Test()
+    public void deleteDiscuss(){
+        commentService.findCommentByEntity(1,283);
+
+    }
+
 
     @Test
     void findFollowees() {

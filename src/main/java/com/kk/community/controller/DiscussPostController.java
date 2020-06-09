@@ -241,6 +241,16 @@ public class DiscussPostController implements CommunityConstant {
         User user = hostHolder.getUser();
 
         discussPostService.updateType(id,1);
+        //需要把评论也删除
+        /*Page<Comment> commentList = commentService.findCommentByEntity(ENTITY_TYPE_POST, id);
+        for (Comment commentVo : commentList) {
+            commentService.deleteComment(commentVo.getId(),1);
+            Page<Comment> replyList = commentService.findCommentByEntity(ENTITY_TYPE_COMMENT, commentVo.getId());
+            for (Comment reply : replyList) {
+                commentService.deleteComment(reply.getId(),1);
+            }
+        }*/
+
         //删贴事件
         Event event =new Event()
                 .setTopic(TOPIC_DELETE)

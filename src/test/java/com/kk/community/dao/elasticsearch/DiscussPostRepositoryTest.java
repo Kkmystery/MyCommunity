@@ -29,6 +29,9 @@ import org.springframework.data.elasticsearch.core.query.SearchQuery;
 
 import javax.annotation.Resource;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -50,9 +53,10 @@ class DiscussPostRepositoryTest {
 
     @Test
     public void save() {
-        discussPostRepository.saveAll(discussPostMapper.selectListByPage(null,0));
         //discussPostRepository.deleteAll();
+        discussPostRepository.saveAll(discussPostMapper.selectListByPage(null, 0));
     }
+
     @Test
     public void search() {
         SearchQuery searchQuery = new NativeSearchQueryBuilder()
@@ -74,6 +78,7 @@ class DiscussPostRepositoryTest {
                     return null;
                 }
                 List<DiscussPost> list = new ArrayList<>();
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 for (SearchHit hit : hits) {
                     DiscussPost post = new DiscussPost();
                     String id = hit.getSourceAsMap().get("id").toString();
@@ -91,8 +96,12 @@ class DiscussPostRepositoryTest {
                     String status = hit.getSourceAsMap().get("status").toString();
                     post.setStatus(Integer.valueOf(status));
 
-                    String createTime = hit.getSourceAsMap().get("createTime").toString();
-                    post.setCreateTime(new Date(Long.valueOf(createTime)));
+                    try {
+                        String createTime = hit.getSourceAsMap().get("createTime").toString();
+                        post.setCreateTime(simpleDateFormat.parse(createTime));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
 
                     String commentCount = hit.getSourceAsMap().get("commentCount").toString();
                     post.setCommentCount(Integer.valueOf(commentCount));
@@ -124,7 +133,7 @@ class DiscussPostRepositoryTest {
         System.out.println(page.getTotalElements());//112
         System.out.println(page.getNumber());//0
         System.out.println(page.getSize());//10
-        for (DiscussPost post:page){
+        for (DiscussPost post : page) {
             System.out.println(post);
         }
     }

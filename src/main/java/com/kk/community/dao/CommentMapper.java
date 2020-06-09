@@ -29,4 +29,6 @@ public interface CommentMapper {
     Page<Comment> selectMyCommentList(int userId);
 
     int selectMyCommentCount(int userId);
+
+    int updateStatus(int id,int status);
 }

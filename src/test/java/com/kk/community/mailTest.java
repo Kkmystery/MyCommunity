@@ -15,7 +15,6 @@ public class mailTest {
     MailClient mailClient;
     @Autowired
     TemplateEngine templateEngine;
-
     @Test
     public void sendMail(){
         mailClient.sendMail("1161676129@qq.com","通知","八八八啦啦啦");

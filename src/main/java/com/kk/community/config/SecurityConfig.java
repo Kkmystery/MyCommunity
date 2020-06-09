@@ -33,8 +33,8 @@ import java.io.PrintWriter;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter implements CommunityConstant {
 
-    @Autowired
-    private UserService userService;
+   /* @Autowired
+    private UserService userService;*/
 
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -160,6 +160,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements Comm
                 });
 
         //使用我们自定义的登陆和退出
-        http.logout().logoutUrl("/securitylogout");
+        http.logout().logoutSuccessUrl("/");
     }
 }

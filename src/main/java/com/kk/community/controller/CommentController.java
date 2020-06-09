@@ -85,13 +85,15 @@ public class CommentController implements CommunityConstant {
         PageHelper.startPage(page,pageSize);
         Page<Comment> myComments = commentService.findMyComment(userId);
         List<Map<String,Object>> myCommentList=new ArrayList<>();
+        //DiscussPost post=new DiscussPost();
         if (myComments!=null){
             for (Comment comment:myComments){
                 Map<String,Object> map=new HashMap<>();
-                map.put("comment1",comment);
+                map.put("comment",comment);
                 //System.out.println("commententityId"+comment.getEntityId());
                 DiscussPost post = discussPostService.findDiscussPostById(comment.getEntityId());
-                map.put("post1",post);
+                //System.out.println(post.getTitle());
+                map.put("post",post);
                 myCommentList.add(map);
             }
         }

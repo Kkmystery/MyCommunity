@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.util.HtmlUtils;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author : K k
@@ -80,4 +81,10 @@ public class CommentServiceImpl implements CommentService, CommunityConstant {
     public int findMyCommentCount(int userId) {
         return commentMapper.selectMyCommentCount(userId);
     }
+
+    @Override
+    public void deleteComment(int id, int status) {
+        commentMapper.updateStatus(id,status);
+    }
+
 }

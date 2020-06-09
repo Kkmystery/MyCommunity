@@ -39,7 +39,7 @@ public class SearchController implements CommunityConstant {
     @RequestMapping(path = "/search" ,method = RequestMethod.GET)
     public String search(String keyword, Model model,
                          @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-                         @RequestParam(value = "pageSize", required = false, defaultValue = "8") int pageSize){
+                         @RequestParam(value = "pageSize", required = false, defaultValue = "15") int pageSize){
         if (keyword.equals("")){
             return "index";
         }

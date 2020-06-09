@@ -1,6 +1,7 @@
 package com.kk.community;
 
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -10,6 +11,7 @@ import javax.annotation.PostConstruct;
 @MapperScan("com.kk.community.dao")
 @SpringBootApplication
 @EnableAspectJAutoProxy
+@EnableRabbit
 public class CommunitydemoApplication {
     @PostConstruct
     public void init(){

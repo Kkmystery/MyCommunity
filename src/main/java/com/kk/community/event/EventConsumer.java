@@ -9,12 +9,10 @@ import com.kk.community.service.FollowService;
 import com.kk.community.service.MessageService;
 import com.kk.community.util.CommunityConstant;
 import com.kk.community.util.Event;
-import org.apache.kafka.clients.consumer.Consumer;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -41,17 +39,18 @@ public class EventConsumer implements CommunityConstant {
     @Autowired
     private FollowService followService;
 
-    @KafkaListener(topics = {TOPIC_COMMENT,TOPIC_LIKE,TOPIC_FOLLOW})
-    public void handleCommentMessage(ConsumerRecord record){
-        if(record==null||record.value()==null){
-            logger.error("消息的内容为空");
-            return;
-        }
-        Event event= JSONObject.parseObject(record.value().toString(),Event.class);
-        if (event==null){
+    //一对一
+    @RabbitListener(queues = {TOPIC_COMMENT,TOPIC_LIKE,TOPIC_FOLLOW})
+    public void handleCommentMessage(Event event){
+        if(event==null){
             logger.error("消息格式错误");
             return;
         }
+        //Event event= JSONObject.parseObject(record.value().toString(),Event.class);
+        /*if (event==null){
+            logger.error("消息格式错误");
+            return;
+        }*/
 
         //构造通知
         Message message=new Message();
@@ -76,14 +75,15 @@ public class EventConsumer implements CommunityConstant {
         messageService.addMessage(message);
     }
 
+    //一对多
     //消费发帖消息
-    @KafkaListener(topics = {TOPIC_PUBLISH})
-    public void handlePublishMessage(ConsumerRecord record){
-        if (record==null||record.value()==null){
+    @RabbitListener(queues = {TOPIC_PUBLISH})
+    public void handlePublishMessage(Event event){
+        if (event==null){
             logger.error("消息内容为空");
             return;
         }
-        Event event=JSONObject.parseObject(record.value().toString(),Event.class);
+        //Event event=JSONObject.parseObject(record.value().toString(),Event.class);
         if (event==null){
             logger.error("消息格式错误");
             return;
@@ -120,18 +120,17 @@ public class EventConsumer implements CommunityConstant {
     }
 
     //消费删帖消息
-    @KafkaListener(topics = {TOPIC_DELETE})
-    public void handleDeleteMessage(ConsumerRecord record){
-        if (record==null||record.value()==null){
+    @RabbitListener(queues = {TOPIC_DELETE})
+    public void handleDeleteMessage(Event event){
+        if (event==null){
             logger.error("消息内容为空");
             return;
         }
-        Event event=JSONObject.parseObject(record.value().toString(),Event.class);
         if (event==null){
             logger.error("消息格式错误");
             return;
         }
-        DiscussPost discussPost=discussPostService.findDiscussPostById(event.getEntityId());
+        //DiscussPost discussPost=discussPostService.findDiscussPostById(event.getEntityId());
         elasticsearchService.deleteDiscussPost(event.getEntityId());
     }
 }

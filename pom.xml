@@ -33,7 +33,6 @@
             <version>1.27.0.0</version>
         </dependency>
 
-
         <!--定时任务-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -46,11 +45,15 @@
         </dependency>
 
         <!--消息队列 kafka-->
-        <dependency>
+       <!-- <dependency>
             <groupId>org.springframework.kafka</groupId>
             <artifactId>spring-kafka</artifactId>
+        </dependency>-->
+        <!--rabbitmq替换kafka-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
-
         <!--处理表情-->
         <dependency>
             <groupId>com.github.binarywang</groupId>

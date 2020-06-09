@@ -183,5 +183,12 @@
     and entity_type=1
     and user_id=#{userId}
   </select>
+
+  <update id="updateStatus">
+    update comment
+    set status = #{status,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
 </mapper>
 

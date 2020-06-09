@@ -44,8 +44,8 @@ public class UserController implements CommunityConstant {
     private String uploadPath;
     @Value("${community.path.domain}")
     private String domin;
-    @Value("${commuinty.path.filePath}")
-    private String filePath;
+   /* @Value("${commuinty.path.filePath}")
+    private String filePath;*/
     @Value("${server.servlet.context-path}")
     private String contextPath;
     @Autowired
@@ -63,6 +63,8 @@ public class UserController implements CommunityConstant {
         return "site/setting";
     }
 
+    //TODO修改密码功能
+
     /*上传文件访问路径*/
     @LoginRequired
     @RequestMapping(path = "/upload", method = RequestMethod.POST)
@@ -77,44 +79,39 @@ public class UserController implements CommunityConstant {
         //文件后缀 .jpg, .png
         String suffix = fileName.substring(fileName.lastIndexOf("."));
         //后缀名 如jpg、png
-        String extName = fileName.substring(fileName.lastIndexOf(".") + 1);
+        //String extName = fileName.substring(fileName.lastIndexOf(".") + 1);
         if (StringUtils.isBlank(suffix)) {
             model.addAttribute("error", "文件格式不正确");
             return "site/setting";
         }
 
         //若正确上传,生成随机文件名
-        //fileName = CommunityUtil.generateUUid() + suffix;
+        fileName = CommunityUtil.generateUUid() + suffix;
 
+        /* byte[] content = headerImage.getBytes();
+         //创建文件上传的封装实体类 包括文件名字、文件字节、文件格式
+         FastDfsFile fastDfsFile = new FastDfsFile(fileName,content,extName);
+         //基于工具类进行文件上传,并接受返回参数  String[] 上传至云服务器
+         String[] uploadResult = FastDfsClient.upload(fastDfsFile);*/
+        //封装返回结果
+        //确定文件存放路径
+        File dest = new File(uploadPath + "/" + fileName);
         try {
-            byte[] content = headerImage.getBytes();
-            //创建文件上传的封装实体类 包括文件名字、文件字节、文件格式
-            FastDfsFile fastDfsFile = new FastDfsFile(fileName,content,extName);
-            //基于工具类进行文件上传,并接受返回参数  String[] 上传至云服务器
-            String[] uploadResult = FastDfsClient.upload(fastDfsFile);
-            //封装返回结果
-            //确定文件存放路径
-           /* File dest = new File(uploadPath + "/" + fileName);
-            try {
-                //存储文件
-                headerImage.transferTo(dest);
-            } catch (IOException e) {
-                logger.error("上传文件失败" + e.getMessage());
-                throw new RuntimeException("上传文件失败，服务器发送异常！", e);
-            }*/
-            //更新当前用户头像路径(web访问路径)
-            //http://localhost:8080/community/user/header/xxx.png
-            //更改为http://47.98.255.128:8888/group1/M00/00/00/xxx.jpg
-            User user = hostHolder.getUser();
-            System.out.println(user.toString());
-            //存放的是一个对服务器的请求图片路径，服务器拿到里面的图片名字再从本地获取
-            String headerUrl = filePath + uploadResult[1];
-            userService.updateHeader(user.getId(), headerUrl);
+            //存储文件
+            headerImage.transferTo(dest);
         } catch (IOException e) {
-            e.printStackTrace();
             logger.error("上传文件失败" + e.getMessage());
             throw new RuntimeException("上传文件失败，服务器发送异常！", e);
         }
+        //更新当前用户头像路径(web访问路径)
+        //http://localhost:8080/community/user/header/xxx.png
+        //更改为http://47.98.255.128:8888/group1/M00/00/00/xxx.jpg
+        User user = hostHolder.getUser();
+        System.out.println(user.toString());
+        //存放的是一个对服务器的请求图片路径，服务器拿到里面的图片名字再从本地获取
+        //String headerUrl = filePath + uploadResult[1];
+        String headerUrl = domin+contextPath+"/upload/"+fileName ;
+        userService.updateHeader(user.getId(), headerUrl);
         return "redirect:/index";
     }
 
